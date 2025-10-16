@@ -38,6 +38,12 @@ int main(void) {
          rbSearch(a, 0, a->len, 10));
   printf("recursive binary search number 5 index: %d\n",
          rbSearch(a, 0, a->len, 5));
+  Set(a, 2, 22);
+  printf("get  val of array[2] %d\n", Get(a, 2));
+  printf("get max val of array %d\n", Max(a));
+  printf("get min val of array %d\n", Min(a));
+  printf("get sum of array %d\n", Sum(a));
+  printf("get avg of array %.2lf\n", Avg(a));
 
   free(a->A);
   free(a);

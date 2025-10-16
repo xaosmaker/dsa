@@ -44,10 +44,10 @@ struct Array *CreateArray(int size) {
   return p;
 }
 
-void Append(struct Array *a, int n) {
+void Append(struct Array *a, int val) {
   ReallocArray(a);
 
-  a->A[a->len] = n;
+  a->A[a->len] = val;
   a->len++;
 }
 
@@ -62,14 +62,14 @@ void Display(struct Array *a) {
   printf("]\n");
 }
 
-void Insert(struct Array *a, int index, int n) {
+void Insert(struct Array *a, int index, int val) {
   if (index >= 0 && index <= a->len) {
 
     ReallocArray(a);
     for (int i = a->len; i > index; i--) {
       a->A[i] = a->A[i - 1];
     }
-    a->A[index] = n;
+    a->A[index] = val;
     a->len++;
   }
 }
@@ -142,4 +142,52 @@ int rbSearch(struct Array *a, int low, int high, int key) {
     }
   }
   return -1;
+}
+
+int Get(struct Array *a, int index) {
+  if (index >= 0 && index < a->len) {
+    return a->A[index];
+  }
+  return NAN;
+}
+
+void Set(struct Array *a, int index, int val) {
+  if (index >= 0 && index < a->len) {
+    a->A[index] = val;
+  }
+}
+int Max(struct Array *a) {
+  int max = a->A[0];
+
+  for (int i = 1; i < a->len; i++) {
+    if (a->A[i] > max) {
+      max = a->A[i];
+    }
+  }
+  return max;
+}
+
+int Min(struct Array *a) {
+
+  int min = a->A[0];
+  for (int i = 1; i < a->len; i++) {
+    if (a->A[i] < min) {
+      min = a->A[i];
+    }
+  }
+  return min;
+}
+
+int Sum(struct Array *a) {
+  int sum = 0;
+
+  for (int i = 0; i < a->len; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+float Avg(struct Array *a) {
+  float sum = Sum(a);
+  return sum / a->len;
 }
