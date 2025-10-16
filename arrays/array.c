@@ -19,6 +19,12 @@ void ReallocArray(struct Array *a) {
   }
 }
 
+void swap(int *n, int *n2) {
+  int temp = *n;
+  *n = *n2;
+  *n2 = temp;
+}
+
 struct Array *CreateArray(int size) {
 
   struct Array *p = (struct Array *)malloc(sizeof(struct Array));
@@ -77,4 +83,63 @@ int Delete(struct Array *a, int index) {
     return val;
   }
   return NAN;
+}
+
+int lSearch(struct Array *a, int key) {
+  for (int i = 0; i < a->len; i++) {
+    if (a->A[i] == key) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+int ilSearch(struct Array *a, int key) {
+
+  for (int i = 0; i < a->len; i++) {
+    if (a->A[i] == key) {
+      if (i == 0) {
+
+        return i;
+      } else {
+        swap(&a->A[i], &(a->A[i - 1]));
+        return i - 1;
+      }
+    }
+  }
+
+  return -1;
+}
+
+int bSearch(struct Array *a, int low, int high, int key) {
+
+  while (low <= high) {
+
+    int mid = (low + high) / 2;
+    if (a->A[mid] == key) {
+      return mid;
+    } else if (key > a->A[mid]) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return -1;
+}
+
+int rbSearch(struct Array *a, int low, int high, int key) {
+
+  if (low <= high) {
+
+    int mid = (low + high) / 2;
+    if (a->A[mid] == key) {
+      return mid;
+    } else if (key > a->A[mid]) {
+      return rbSearch(a, mid + 1, high, key);
+    } else {
+      return rbSearch(a, low, mid - 1, key);
+    }
+  }
+  return -1;
 }

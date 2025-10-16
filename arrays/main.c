@@ -10,8 +10,8 @@ int main(void) {
   Append(a, 2);
   Append(a, 3);
   Append(a, 4);
-  Append(a, 5);
   Append(a, 6);
+  Append(a, 5);
   Append(a, 7);
   Insert(a, 1, 1);
   Insert(a, 1, 12);
@@ -19,11 +19,25 @@ int main(void) {
   Insert(a, a->len, 8);
   Display(a);
   printf("size: %d len: %d\n", a->size, a->len);
-  printf("%d\n", Delete(a, 0));
-  printf("%d\n", Delete(a, 1));
-  printf("%d\n", Delete(a, 22));
+  printf("delete pos 0 element: %d\n", Delete(a, 0));
+  Display(a);
+  printf("delete pos 1 element: %d\n", Delete(a, 1));
+  Display(a);
+  printf("delete pos 22 element: %d\n", Delete(a, 22));
+  Display(a);
   Display(a);
   printf("size: %d len: %d\n", a->size, a->len);
+  printf("search number 10 index: %d\n", lSearch(a, 10));
+  printf("search number 5 index: %d\n", lSearch(a, 5));
+  printf("search number 5 index: %d\n", ilSearch(a, 5));
+  Display(a);
+  printf("binary search number 4 index: %d\n", bSearch(a, 0, a->len, 4));
+  printf("binary search number 8 index: %d\n", bSearch(a, 0, a->len, 8));
+  printf("binary search number 0 index: %d\n", bSearch(a, 0, a->len, 0));
+  printf("recursive binary search number 10 index: %d\n",
+         rbSearch(a, 0, a->len, 10));
+  printf("recursive binary search number 5 index: %d\n",
+         rbSearch(a, 0, a->len, 5));
 
   free(a->A);
   free(a);
