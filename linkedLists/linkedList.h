@@ -29,5 +29,11 @@ int MaxNode(ll_t *ll);
 int rMaxNode(struct Node *nd);
 int MinNode(ll_t *ll);
 int rMinNode(struct Node *nd);
+struct Node *Search(ll_t *ll, int key);
+struct Node *rSearch(struct Node *nd, int key);
+struct Node *iSearch(ll_t *ll, int key);
+struct Node *irSearch(ll_t *ll, int key);
+void insertNode(ll_t *ll, int index, int val);
+void insertSorted(ll_t *ll, int val);
 
 #endif // !LinkedList_h

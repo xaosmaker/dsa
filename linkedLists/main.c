@@ -9,7 +9,7 @@ int main(void) {
   printf("count list nodes should be %d, %d\n", ll->len, CountNodes(ll));
   DisplayNodesRec(ll->head);
   DisplayNodes(ll);
-  AddNode(ll, 1);
+  insertNode(ll, -1, 1);
   AddNode(ll, 2);
   AddNode(ll, 3);
   AddNode(ll, -25);
@@ -25,8 +25,108 @@ int main(void) {
   printf("recursive max node should be: %d\n", rMaxNode(ll->head));
   printf("min node should be: %d\n", MinNode(ll));
   printf("recursive min node should be: %d\n", rMinNode(ll->head));
+  struct Node *p = Search(ll, 3);
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  }
 
-  printf("\n\n");
+  p = Search(ll, 125);
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("search address: %p\n", p);
+  }
+
+  p = rSearch(ll->head, 22);
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("search address: %p\n", p);
+  }
+  p = rSearch(ll->head, 125);
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("search address: %p\n", p);
+  }
+
+  p = iSearch(ll, 22);
+
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("search address: %p\n", p);
+  }
+  DisplayNodes(ll);
+
+  p = irSearch(ll, 22);
+
+  if (p) {
+    printf("irSearch address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("irSearch address: %p\n", p);
+  }
+  DisplayNodes(ll);
+
+  p = irSearch(ll, -25);
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("search address: %p\n", p);
+  }
+  DisplayNodes(ll);
+
+  p = irSearch(ll, -21);
+  if (p) {
+    printf("search address: %p, val: %d\n", p, p->data);
+  } else {
+    printf("search address: %p\n", p);
+  }
+  DisplayNodes(ll);
+
+  insertNode(ll, 25, 14);
+  DisplayNodes(ll);
+  insertNode(ll, 0, 24);
+  DisplayNodes(ll);
+  insertNode(ll, 4, 34);
+  DisplayNodes(ll);
+
+  DeleteAllNodes(ll);
+
+  DisplayNodes(ll);
+  insertSorted(ll, 10);
+  DisplayNodes(ll);
+  insertSorted(ll, 4);
+  DisplayNodes(ll);
+  insertSorted(ll, 3);
+  DisplayNodes(ll);
+
+  //
+  insertSorted(ll, 6);
+  DisplayNodes(ll);
+  //
+  insertSorted(ll, 8);
+  DisplayNodes(ll);
+
+  insertSorted(ll, 13);
+  insertSorted(ll, 0);
+  insertSorted(ll, -1);
+  insertSorted(ll, 5);
+
+  insertSorted(ll, 12);
+  insertSorted(ll, 9);
+  DisplayNodes(ll);
+
+  insertSorted(ll, 7);
+
+  insertSorted(ll, 11);
+  insertSorted(ll, 1);
+  insertSorted(ll, 2);
+  insertSorted(ll, 125);
+
+  DisplayNodes(ll);
+  // //
+  // printf("\n\n");
   DeleteAllNodes(ll);
   free(ll);
   return 0;

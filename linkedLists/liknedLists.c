@@ -1,5 +1,7 @@
 #include "linkedList.h"
 #include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 ll_t *CreateLL() {
   ll_t *p = (ll_t *)malloc(sizeof(ll_t));
@@ -66,6 +68,7 @@ void DeleteAllNodes(ll_t *ll) {
     node = node->next;
     free(dnode);
   }
+  ll->head = NULL;
 }
 
 int CountNodes(ll_t *ll) {
@@ -162,4 +165,126 @@ int rMinNode(struct Node *nd) {
     }
   }
   return min;
+}
+struct Node *Search(ll_t *ll, int key) {
+  struct Node *head = ll->head;
+  while (head) {
+    if (head->data == key) {
+
+      return head;
+    }
+    head = head->next;
+  }
+  return NULL;
+}
+
+struct Node *rSearch(struct Node *nd, int key) {
+
+  if (nd) {
+    if (nd->data == key) {
+      return nd;
+    }
+    return rSearch(nd->next, key);
+  }
+  return NULL;
+}
+
+struct Node *iSearch(ll_t *ll, int key) {
+
+  struct Node *head = ll->head;
+  struct Node *prevNode = NULL;
+
+  while (head) {
+
+    if (head->data == key) {
+      if (prevNode) {
+        prevNode->next = head->next;
+        head->next = ll->head;
+        ll->head = head;
+      }
+      return head;
+    }
+
+    prevNode = head;
+    head = head->next;
+  }
+  return NULL;
+}
+
+static struct Node *irSearchHelper(struct Node *nd, struct Node *prevNode,
+                                   int key) {
+  if (nd) {
+    if (nd->data == key) {
+      if (prevNode) {
+        prevNode->next = nd->next;
+      }
+      return nd;
+    }
+    return irSearchHelper(nd->next, nd, key);
+  }
+  return NULL;
+}
+
+struct Node *irSearch(ll_t *ll, int key) {
+  struct Node *node = NULL;
+
+  node = irSearchHelper(ll->head, NULL, key);
+  if (node && ll->head != node) {
+    node->next = ll->head;
+    ll->head = node;
+  }
+  return node;
+}
+static struct Node *createNode(ll_t *ll, int val) {
+  struct Node *node = (struct Node *)malloc(sizeof(struct Node));
+  if (!node) {
+    printf("error inserting node deleting everyhting");
+    DeleteAllNodes(ll);
+    free(ll);
+    exit(1);
+  }
+
+  node->data = val;
+  node->next = NULL;
+  return node;
+}
+
+void insertNode(ll_t *ll, int index, int val) {
+  struct Node *node = createNode(ll, val);
+
+  if (index <= 0 || !ll->head) {
+    node->next = ll->head;
+    ll->head = node;
+  } else {
+    struct Node *nextNode = ll->head;
+    for (int i = 1; i < index && nextNode->next; i++) {
+      nextNode = nextNode->next;
+    }
+    node->next = nextNode->next;
+    nextNode->next = node;
+  }
+}
+
+void insertSorted(ll_t *ll, int val) {
+  struct Node *node = createNode(ll, val);
+
+  if (!ll->head) {
+    ll->head = node;
+    return;
+  }
+  if (ll->head->data > val) {
+    node->next = ll->head;
+    ll->head = node;
+    return;
+  }
+
+  struct Node *currentNode = ll->head;
+  struct Node *prevNode = ll->head;
+  while (currentNode && currentNode->data < val) {
+    prevNode = currentNode;
+    currentNode = currentNode->next;
+  }
+
+  node->next = currentNode;
+  prevNode->next = node;
 }
