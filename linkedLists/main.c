@@ -7,9 +7,11 @@ int main(void) {
   printf("\n\n");
   ll_t *ll = CreateLL();
   printf("count list nodes should be %d, %d\n", ll->len, CountNodes(ll));
+  reverseLLRec(ll);
   DisplayNodesRec(ll->head);
   DisplayNodes(ll);
   insertNode(ll, -1, 1);
+  reverseLLRec(ll);
   AddNode(ll, 2);
   AddNode(ll, 3);
   AddNode(ll, -25);
@@ -106,6 +108,7 @@ int main(void) {
   DisplayNodes(ll);
   //
   insertSorted(ll, 8);
+  insertSorted(ll, 8);
   DisplayNodes(ll);
 
   insertSorted(ll, 13);
@@ -124,9 +127,44 @@ int main(void) {
   insertSorted(ll, 2);
   insertSorted(ll, 125);
 
+  DeleteNode(ll, -1);
+  DeleteNode(ll, 8);
+  DeleteNode(ll, 125);
+  DeleteNode(ll, 202);
+  insertSorted(ll, 8);
+  insertSorted(ll, 8);
+  insertSorted(ll, 8);
+  insertSorted(ll, 8);
+  insertSorted(ll, 13);
+  insertSorted(ll, 13);
+
+  printf("is sorted ll: %s\n", isSortedLL(ll) ? "true" : "false");
   DisplayNodes(ll);
+  DeleteDublicates(ll);
+
+  insertSorted(ll, 0);
+  insertSorted(ll, 0);
+  insertSorted(ll, 0);
+
+  DeleteDublicates(ll);
+  DisplayNodes(ll);
+  reverseLLSlidingPointers(ll);
+  DisplayNodes(ll);
+  reverseLLRec(ll);
+  DisplayNodes(ll);
+  ll_t *second = CreateLL();
+  AddNode(second, 100);
+  AddNode(second, 101);
+  AddNode(second, 102);
+  DisplayNodes(second);
+  AppendLL(ll, second);
+  DisplayNodes(ll);
+
   // //
   // printf("\n\n");
+  //
+  DeleteAllNodes(second);
+  free(second);
   DeleteAllNodes(ll);
   free(ll);
   return 0;

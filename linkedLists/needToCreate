@@ -1,0 +1,24 @@
+circular linked list with only head{
+  diplay;
+  insert;
+  delete;
+  insertSorted;
+  reverse;
+}
+circular Doubly linked list with head and tail{
+  display;
+  insert;
+  delete;
+  insertSorted;
+  reverse;
+}
+
+chall find middle of ll wiht 2 pointers in a single scan;
+{
+find the intercection of linked lists 
+it is good to use stack 
+or how i can think it is recursion maybe lelp us
+we try to find the 4 the last
+1->2->3->4->5 ...
+   1->2->^
+}

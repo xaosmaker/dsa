@@ -272,7 +272,7 @@ void insertSorted(ll_t *ll, int val) {
     ll->head = node;
     return;
   }
-  if (ll->head->data > val) {
+  if (ll->head->data >= val) {
     node->next = ll->head;
     ll->head = node;
     return;
@@ -287,4 +287,117 @@ void insertSorted(ll_t *ll, int val) {
 
   node->next = currentNode;
   prevNode->next = node;
+}
+
+void DeleteNode(ll_t *ll, int val) {
+  if (!ll->head) {
+    return;
+  }
+  struct Node *node = ll->head;
+  struct Node *prevNode = ll->head;
+
+  if (node->data == val) {
+    // delete the first node
+    ll->head = node->next;
+    free(node);
+    return;
+  }
+  while (node) {
+
+    if (node->data == val) {
+      prevNode->next = node->next;
+      free(node);
+      return;
+    }
+    prevNode = node;
+    node = node->next;
+  }
+}
+
+_Bool isSortedLL(ll_t *ll) {
+
+  struct Node *node = ll->head;
+  struct Node *pNode = NULL;
+
+  while (node) {
+    if (pNode && pNode->data > node->data) {
+
+      return 0;
+    }
+    pNode = node;
+    node = node->next;
+  }
+  return 1;
+}
+
+void DeleteDublicates(ll_t *ll) {
+
+  struct Node *node = ll->head;
+  struct Node *prevNode = NULL;
+
+  while (node) {
+    if (prevNode && prevNode->data == node->data) {
+      prevNode->next = node->next;
+      free(node);
+      node = prevNode;
+    }
+    prevNode = node;
+    node = node->next;
+  }
+}
+
+void reverseLLSlidingPointers(ll_t *ll) {
+  struct Node *node = ll->head;
+  struct Node *prevNode = NULL;
+  struct Node *pre = NULL;
+
+  while (node) {
+    pre = prevNode;
+    prevNode = node;
+    node = node->next;
+
+    prevNode->next = pre;
+  }
+  ll->head = prevNode;
+}
+
+static struct Node *reverseLLRecHelper(struct Node *node,
+                                       struct Node *prevNode) {
+
+  if (node) {
+    struct Node *retNode = reverseLLRecHelper(node->next, node);
+    node->next = prevNode;
+    return retNode;
+  }
+  return prevNode;
+}
+
+void reverseLLRec(ll_t *ll) {
+  //
+  ll->head = reverseLLRecHelper(ll->head, NULL);
+}
+void AppendLL(ll_t *ll, ll_t *second) {
+
+  struct Node *node = ll->head;
+  while (node->next) {
+    node = node->next;
+  }
+  node->next = second->head;
+  second->head = NULL;
+}
+
+void MergeLL(ll_t *ll, ll_t *second) {
+  // TODO:need implementation;
+  /*
+   * merget the second ll to the first;
+   * first check the  first node and make the changes
+   * second check the elements witch is lower from the prev so make the changes
+   */
+}
+bool isLoop() {
+  /*
+   * check if a ll is a loop
+   * to achive this we need 2 pointers and the one move by 2 and the other by
+   * one if the pointer  meet it is loop else if we finish on null is not
+   */
 }
