@@ -6,6 +6,7 @@ int main(void) {
 
   Display(a);
   printf("size: %d len: %d\n", a->size, a->len);
+  insertSorted(a, -1);
   Append(a, 0);
   Append(a, 2);
   Append(a, 3);
@@ -13,10 +14,11 @@ int main(void) {
   Append(a, 6);
   Append(a, 5);
   Append(a, 7);
-  Insert(a, 1, 1);
+  Insert(a, 2, 1);
   Insert(a, 1, 12);
   Insert(a, 0, -1);
   Insert(a, a->len, 8);
+  Insert(a, a->len, 12);
   Display(a);
   printf("size: %d len: %d\n", a->size, a->len);
   printf("delete pos 0 element: %d\n", Delete(a, 0));
@@ -38,12 +40,23 @@ int main(void) {
          rbSearch(a, 0, a->len, 10));
   printf("recursive binary search number 5 index: %d\n",
          rbSearch(a, 0, a->len, 5));
-  Set(a, 2, 22);
+  // Set(a, 2, 22);
   printf("get  val of array[2] %d\n", Get(a, 2));
   printf("get max val of array %d\n", Max(a));
   printf("get min val of array %d\n", Min(a));
   printf("get sum of array %d\n", Sum(a));
   printf("get avg of array %.2lf\n", Avg(a));
+  ReverseArr(a);
+  printf("isReverse Sorted: %s\n", isSortedArr(a, true) ? "true" : "false");
+  Display(a);
+  ReverseArr(a);
+  printf("is Sorted: %s\n", isSortedArr(a, false) ? "true" : "false");
+  Display(a);
+  insertSorted(a, 1);
+  insertSorted(a, 10);
+  insertSorted(a, 9);
+
+  Display(a);
 
   free(a->A);
   free(a);

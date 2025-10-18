@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct Array {
   int *A;
@@ -25,5 +26,9 @@ int Max(struct Array *a);
 int Min(struct Array *a);
 int Sum(struct Array *a);
 float Avg(struct Array *a);
+void ReverseArr(struct Array *a);
+
+void insertSorted(struct Array *a, int val); 
+bool isSortedArr(struct Array *a, bool reverse);
 
 #endif // !ARRAY_H

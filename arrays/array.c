@@ -1,7 +1,5 @@
 #include "array.h"
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 void ReallocArray(struct Array *a) {
   if (a->len >= a->size - 1) {
@@ -190,4 +188,41 @@ int Sum(struct Array *a) {
 float Avg(struct Array *a) {
   float sum = Sum(a);
   return sum / a->len;
+}
+void ReverseArr(struct Array *a) {
+
+  for (int i = 0, j = a->len - 1; i < j; i++, j--)
+    swap(&a->A[i], &a->A[j]);
+}
+
+void insertSorted(struct Array *a, int val) {
+  ReallocArray(a);
+
+  int i = 0;
+  for (; i < a->len; i++) {
+    if (a->A[i] > val) {
+      break;
+    }
+  }
+  for (int j = a->len; j > i; j--) {
+    swap(&a->A[j], &a->A[j - 1]);
+  }
+  a->A[i] = val;
+  a->len++;
+}
+bool isSortedArr(struct Array *a, bool reverse) {
+
+  for (int i = 0; i < a->len - 1; i++) {
+    if (reverse) {
+      if (a->A[i] < a->A[i + 1]) {
+        return false;
+      }
+    } else {
+
+      if (a->A[i] > a->A[i + 1]) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
