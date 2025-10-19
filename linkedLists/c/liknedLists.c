@@ -46,19 +46,6 @@ void DisplayNodes(ll_t *ll) {
   }
 }
 
-void DisplayNodesRec(struct Node *nd) {
-
-  if (nd) {
-    printf("%d", nd->data);
-    if (nd->next) {
-      printf("->");
-    } else {
-      printf("\n");
-    }
-    DisplayNodesRec(nd->next);
-  }
-}
-
 void DeleteAllNodes(ll_t *ll) {
   struct Node *node = ll->head;
   struct Node *dnode = NULL;
@@ -103,21 +90,6 @@ int SumNodes(ll_t *ll) {
   return 0;
 }
 
-int rCountNodes(struct Node *nd) {
-  if (nd) {
-
-    return 1 + rCountNodes(nd->next);
-  }
-  return 0;
-}
-
-int rSumNodes(struct Node *nd) {
-  if (nd) {
-    return nd->data + rSumNodes(nd->next);
-  }
-  return 0;
-}
-
 int MaxNode(ll_t *ll) {
   int max = INT_MIN;
 
@@ -128,16 +100,6 @@ int MaxNode(ll_t *ll) {
       max = head->data;
     }
     head = head->next;
-  }
-  return max;
-}
-int rMaxNode(struct Node *nd) {
-  int max = INT_MIN;
-  if (nd) {
-    max = rMaxNode(nd->next);
-    if (max < nd->data) {
-      max = nd->data;
-    }
   }
   return max;
 }
@@ -156,16 +118,6 @@ int MinNode(ll_t *ll) {
   return min;
 }
 
-int rMinNode(struct Node *nd) {
-  int min = INT_MAX;
-  if (nd) {
-    min = rMinNode(nd->next);
-    if (nd->data < min) {
-      min = nd->data;
-    }
-  }
-  return min;
-}
 struct Node *Search(ll_t *ll, int key) {
   struct Node *head = ll->head;
   while (head) {
@@ -174,17 +126,6 @@ struct Node *Search(ll_t *ll, int key) {
       return head;
     }
     head = head->next;
-  }
-  return NULL;
-}
-
-struct Node *rSearch(struct Node *nd, int key) {
-
-  if (nd) {
-    if (nd->data == key) {
-      return nd;
-    }
-    return rSearch(nd->next, key);
   }
   return NULL;
 }
@@ -211,30 +152,6 @@ struct Node *iSearch(ll_t *ll, int key) {
   return NULL;
 }
 
-static struct Node *irSearchHelper(struct Node *nd, struct Node *prevNode,
-                                   int key) {
-  if (nd) {
-    if (nd->data == key) {
-      if (prevNode) {
-        prevNode->next = nd->next;
-      }
-      return nd;
-    }
-    return irSearchHelper(nd->next, nd, key);
-  }
-  return NULL;
-}
-
-struct Node *irSearch(ll_t *ll, int key) {
-  struct Node *node = NULL;
-
-  node = irSearchHelper(ll->head, NULL, key);
-  if (node && ll->head != node) {
-    node->next = ll->head;
-    ll->head = node;
-  }
-  return node;
-}
 static struct Node *createNode(ll_t *ll, int val) {
   struct Node *node = (struct Node *)malloc(sizeof(struct Node));
   if (!node) {
@@ -361,21 +278,6 @@ void reverseLLSlidingPointers(ll_t *ll) {
   ll->head = prevNode;
 }
 
-static struct Node *reverseLLRecHelper(struct Node *node,
-                                       struct Node *prevNode) {
-
-  if (node) {
-    struct Node *retNode = reverseLLRecHelper(node->next, node);
-    node->next = prevNode;
-    return retNode;
-  }
-  return prevNode;
-}
-
-void reverseLLRec(ll_t *ll) {
-  //
-  ll->head = reverseLLRecHelper(ll->head, NULL);
-}
 void AppendLL(ll_t *ll, ll_t *second) {
 
   struct Node *node = ll->head;
@@ -400,4 +302,5 @@ bool isLoop() {
    * to achive this we need 2 pointers and the one move by 2 and the other by
    * one if the pointer  meet it is loop else if we finish on null is not
    */
+  return 0;
 }

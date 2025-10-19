@@ -1,3 +1,7 @@
+
+organize the content better
+this now is mess
+
 circular linked list with only head{
   diplay;
   insert;
@@ -5,6 +9,7 @@ circular linked list with only head{
   insertSorted;
   reverse;
 }
+
 circular Doubly linked list with head and tail{
   display;
   insert;
@@ -13,7 +18,8 @@ circular Doubly linked list with head and tail{
   reverse;
 }
 
-chall find middle of ll wiht 2 pointers in a single scan;
+challenge find middle of ll wiht 2 pointers in a single scan;
+
 {
 find the intercection of linked lists 
 it is good to use stack 
