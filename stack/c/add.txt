@@ -1,0 +1,3 @@
+need to implement it with linked list
+
+open close bracket test with stack ((){}[]"" '') check if mathcing
