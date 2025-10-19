@@ -1,7 +1,7 @@
 #include "array.h"
-#include <math.h>
+#include <limits.h>
 
-void ReallocArray(struct Array *a) {
+static void ReallocArray(struct Array *a) {
   if (a->len >= a->size - 1) {
     int *newArr = (int *)realloc(a->A, (a->size * 2) * sizeof(int));
     if (newArr == NULL) {
@@ -17,10 +17,16 @@ void ReallocArray(struct Array *a) {
   }
 }
 
-void swap(int *n, int *n2) {
+static void swap(int *n, int *n2) {
   int temp = *n;
   *n = *n2;
   *n2 = temp;
+}
+
+static void shiftElements(struct Array *a, int index) {
+  for (int i = a->len; i > index; i--) {
+    a->A[i] = a->A[i - 1];
+  }
 }
 
 struct Array *CreateArray(int size) {
@@ -64,13 +70,12 @@ void Insert(struct Array *a, int index, int val) {
   if (index >= 0 && index <= a->len) {
 
     ReallocArray(a);
-    for (int i = a->len; i > index; i--) {
-      a->A[i] = a->A[i - 1];
-    }
+    shiftElements(a, index);
     a->A[index] = val;
     a->len++;
   }
 }
+
 int Delete(struct Array *a, int index) {
   if (index >= 0 && index < a->len) {
     int val = a->A[index];
@@ -80,7 +85,7 @@ int Delete(struct Array *a, int index) {
     a->len--;
     return val;
   }
-  return NAN;
+  return INT_MIN;
 }
 
 int lSearch(struct Array *a, int key) {
@@ -146,7 +151,7 @@ int Get(struct Array *a, int index) {
   if (index >= 0 && index < a->len) {
     return a->A[index];
   }
-  return NAN;
+  return INT_MIN;
 }
 
 void Set(struct Array *a, int index, int val) {
@@ -155,9 +160,9 @@ void Set(struct Array *a, int index, int val) {
   }
 }
 int Max(struct Array *a) {
-  int max = a->A[0];
+  int max = INT_MIN;
 
-  for (int i = 1; i < a->len; i++) {
+  for (int i = 0; i < a->len; i++) {
     if (a->A[i] > max) {
       max = a->A[i];
     }
@@ -167,7 +172,7 @@ int Max(struct Array *a) {
 
 int Min(struct Array *a) {
 
-  int min = a->A[0];
+  int min = INT_MAX;
   for (int i = 1; i < a->len; i++) {
     if (a->A[i] < min) {
       min = a->A[i];
@@ -204,9 +209,7 @@ void insertSorted(struct Array *a, int val) {
       break;
     }
   }
-  for (int j = a->len; j > i; j--) {
-    swap(&a->A[j], &a->A[j - 1]);
-  }
+  shiftElements(a, i);
   a->A[i] = val;
   a->len++;
 }

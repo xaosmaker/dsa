@@ -53,7 +53,9 @@ int main(void) {
   printf("is Sorted: %s\n", isSortedArr(a, false) ? "true" : "false");
   Display(a);
   insertSorted(a, 1);
+  Display(a);
   insertSorted(a, 10);
+  Display(a);
   insertSorted(a, 9);
 
   Display(a);
