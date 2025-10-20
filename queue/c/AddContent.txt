@@ -1,0 +1,8 @@
+have to implement queue with array and pointer circular queue
+
+have to implement it with linked list
+
+priority queue with 3 queues and
+  insert sorted to calculate priority on insertion
+
+

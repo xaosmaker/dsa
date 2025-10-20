@@ -1,3 +1,5 @@
 need to implement it with linked list
 
 open close bracket test with stack ((){}[]"" '') check if mathcing
+
+create a postfix calculator with stack and postfix expression evaluation
