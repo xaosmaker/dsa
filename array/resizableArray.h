@@ -16,5 +16,10 @@ void push(resizable_array_t *array, int n);
 void display(resizable_array_t *a);
 int *pop(resizable_array_t *a);
 void insert(resizable_array_t *a, int ind, int n);
+int *get(resizable_array_t *a, int ind);
+void set(resizable_array_t *a, int ind, int n);
+double avg(resizable_array_t *a);
+int max(resizable_array_t *a);
+int min(resizable_array_t *a);
 
 #endif // !RESIZABLE_ARRAY

@@ -27,6 +27,12 @@ int main(void) {
   insert(a, 6, 6);
 
   display(a);
+  printf("%d\n", *get(a, 2));
+  set(a, 2, 10);
+  printf("min: %d\n", min(a));
+  printf("max: %d\n", max(a));
+  printf("avg: %lf\n", avg(a));
+  display(a);
   freeArray(a);
 
   return 0;

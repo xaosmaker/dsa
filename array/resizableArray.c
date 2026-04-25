@@ -20,6 +20,13 @@ static void resizeArray(resizable_array_t *a) {
   }
 }
 
+static void shiftLeft(resizable_array_t *a, int ind) {
+
+  for (int i = a->size; i > ind; i--) {
+    *(a->data + i) = *(a->data + i - 1);
+  }
+}
+
 resizable_array_t *newArray(size_t arraySize) {
 
   resizable_array_t *array =
@@ -68,14 +75,59 @@ int *pop(resizable_array_t *a) {
 }
 
 void insert(resizable_array_t *a, int ind, int n) {
-  resizeArray(a);
 
   if (ind < 0 || ind > a->size) {
     return;
   }
-  for (int i = a->size; i > ind; i--) {
-    *(a->data + i) = *(a->data + i - 1);
-  }
+
+  resizeArray(a);
+  shiftLeft(a, ind);
+
   a->size++;
+  *(a->data + ind) = n;
+}
+
+int *get(resizable_array_t *a, int ind) {
+  if (ind < 0 || ind >= a->size) {
+    return NULL;
+  }
+
+  return a->data + ind;
+}
+
+int max(resizable_array_t *a) {
+  int maxVal = INT_MIN;
+  for (int i = 0; i < a->size; i++) {
+    int val = *(a->data + i);
+    if (val > maxVal) {
+      maxVal = val;
+    }
+  }
+  return maxVal;
+}
+
+int min(resizable_array_t *a) {
+  int minVal = INT_MAX;
+  for (int i = 0; i < a->size; i++) {
+    int val = *(a->data + i);
+    if (val < minVal) {
+      minVal = val;
+    }
+  }
+  return minVal;
+}
+double avg(resizable_array_t *a) {
+  double sum = 0.0;
+  for (int i = 0; i < a->size; i++) {
+    sum += *(a->data + i);
+  }
+  double av = sum / a->size;
+  return av;
+}
+
+void set(resizable_array_t *a, int ind, int n) {
+  if (ind < 0 || ind >= a->size) {
+    return;
+  }
   *(a->data + ind) = n;
 }
