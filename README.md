@@ -4,6 +4,10 @@
 the arrays always is a continues block of memory
 the 2d and the 3d array is the same the compilere make one block
 
+in array i use pointer arithmetics `*(p + i)` it's for learning purposes. 
+
+`*(p + i)` is difficult to read fast and this `[]` is better for reading
+
 #### Arrays formulas
 
 [c] = column

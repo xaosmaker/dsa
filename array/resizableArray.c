@@ -5,7 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void resizeArray(resizable_array_t *a) {
+static void swap(int *a, int *b) {
+  int tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
+
+static void resizeArray(array_t *a) {
   if (a->capacity == a->size) {
 
     int *resizedData = realloc(a->data, 2 * a->capacity * sizeof(int));
@@ -20,17 +26,16 @@ static void resizeArray(resizable_array_t *a) {
   }
 }
 
-static void shiftLeft(resizable_array_t *a, int ind) {
+static void shiftLeft(array_t *a, int ind) {
 
   for (int i = a->size; i > ind; i--) {
     *(a->data + i) = *(a->data + i - 1);
   }
 }
 
-resizable_array_t *newArray(size_t arraySize) {
+array_t *newArray(size_t arraySize) {
 
-  resizable_array_t *array =
-      (resizable_array_t *)malloc(sizeof(resizable_array_t));
+  array_t *array = (array_t *)malloc(sizeof(array_t));
 
   if (!array) {
     return NULL;
@@ -46,18 +51,18 @@ resizable_array_t *newArray(size_t arraySize) {
   return array;
 }
 
-void *freeArray(resizable_array_t *a) {
+void *freeArray(array_t *a) {
   free(a->data);
   free(a);
   return NULL;
 }
 
-void push(resizable_array_t *array, int n) {
+void push(array_t *array, int n) {
   resizeArray(array);
   *(array->data + array->size++) = n;
 }
 
-void display(resizable_array_t *a) {
+void display(array_t *a) {
   printf("[");
   for (int i = 0; i < a->size; i++) {
     printf("%d", *(a->data + i));
@@ -67,14 +72,14 @@ void display(resizable_array_t *a) {
   }
   printf("]\n");
 }
-int *pop(resizable_array_t *a) {
+int *pop(array_t *a) {
   if (a->size != 0) {
     return a->data + --a->size;
   }
   return NULL;
 }
 
-void insert(resizable_array_t *a, int ind, int n) {
+void insert(array_t *a, int ind, int n) {
 
   if (ind < 0 || ind > a->size) {
     return;
@@ -87,7 +92,7 @@ void insert(resizable_array_t *a, int ind, int n) {
   *(a->data + ind) = n;
 }
 
-int *get(resizable_array_t *a, int ind) {
+int *get(array_t *a, int ind) {
   if (ind < 0 || ind >= a->size) {
     return NULL;
   }
@@ -95,7 +100,7 @@ int *get(resizable_array_t *a, int ind) {
   return a->data + ind;
 }
 
-int max(resizable_array_t *a) {
+int max(array_t *a) {
   int maxVal = INT_MIN;
   for (int i = 0; i < a->size; i++) {
     int val = *(a->data + i);
@@ -106,7 +111,7 @@ int max(resizable_array_t *a) {
   return maxVal;
 }
 
-int min(resizable_array_t *a) {
+int min(array_t *a) {
   int minVal = INT_MAX;
   for (int i = 0; i < a->size; i++) {
     int val = *(a->data + i);
@@ -116,7 +121,7 @@ int min(resizable_array_t *a) {
   }
   return minVal;
 }
-double avg(resizable_array_t *a) {
+double avg(array_t *a) {
   double sum = 0.0;
   for (int i = 0; i < a->size; i++) {
     sum += *(a->data + i);
@@ -125,7 +130,77 @@ double avg(resizable_array_t *a) {
   return av;
 }
 
-void set(resizable_array_t *a, int ind, int n) {
+void deleteInd(array_t *a, int ind) {
+  if (ind < 0 || ind >= a->size) {
+    return;
+  }
+
+  for (; ind <= a->size; ind++) {
+    *(a->data + ind) = *(a->data + ind + 1);
+  }
+  a->size--;
+}
+
+void deleteItem(array_t *a, int item) {
+
+  int ind = INT_MIN;
+  for (int i = 0; i < a->size; i++) {
+    if (*(a->data + i) == item) {
+      ind = i;
+      break;
+    }
+  }
+
+  if (ind == INT_MIN) {
+    return;
+  }
+
+  for (; ind <= a->size; ind++) {
+    *(a->data + ind) = *(a->data + ind + 1);
+  }
+}
+
+void reverseArray(array_t *a) {
+  //
+  int i = 0, j = a->size - 1;
+  while (i < j) {
+    swap(a->data + i++, a->data + j--);
+  }
+}
+int linearSearch(array_t *a, int item) {
+  for (int i = 0; i < a->size; i++) {
+    if (*(a->data + i) == item) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+static int binSearch(int *data, int start, int finish, int item) {
+
+  // sleep(1);
+  // printf("binSearh( start %d,finish %d, item %d)\n", start, finish, item);
+
+  if (start > finish) {
+    return -1;
+  }
+  int mid = (finish + start) / 2;
+  // printf("mid %d\n", mid);
+  if (*(data + mid) == item) {
+    return mid;
+  }
+
+  if ((*(data + mid)) < item) {
+    return binSearch(data, mid + 1, finish, item);
+  }
+  return binSearch(data, start, mid - 1, item);
+}
+
+int binarySearch(array_t *a, int item) {
+  return binSearch(a->data, 0, a->size - 1, item);
+}
+
+void set(array_t *a, int ind, int n) {
   if (ind < 0 || ind >= a->size) {
     return;
   }

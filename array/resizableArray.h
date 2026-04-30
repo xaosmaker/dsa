@@ -8,18 +8,23 @@ typedef struct ResizableArray {
   int size;
   int *data;
 
-} resizable_array_t;
+} array_t;
 
-resizable_array_t *newArray(size_t arraySize);
-void *freeArray(resizable_array_t *array);
-void push(resizable_array_t *array, int n);
-void display(resizable_array_t *a);
-int *pop(resizable_array_t *a);
-void insert(resizable_array_t *a, int ind, int n);
-int *get(resizable_array_t *a, int ind);
-void set(resizable_array_t *a, int ind, int n);
-double avg(resizable_array_t *a);
-int max(resizable_array_t *a);
-int min(resizable_array_t *a);
+array_t *newArray(size_t arraySize);
+void *freeArray(array_t *array);
+void push(array_t *array, int n);
+void display(array_t *a);
+int *pop(array_t *a);
+void insert(array_t *a, int ind, int n);
+int *get(array_t *a, int ind);
+void set(array_t *a, int ind, int n);
+double avg(array_t *a);
+int max(array_t *a);
+int min(array_t *a);
+void deleteInd(array_t *a, int ind);
+void deleteItem(array_t *a, int item);
+void reverseArray(array_t *a);
+int linearSearch(array_t *a, int item);
+int binarySearch(array_t *a, int item);
 
 #endif // !RESIZABLE_ARRAY
