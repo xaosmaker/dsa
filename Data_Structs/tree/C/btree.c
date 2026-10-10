@@ -88,3 +88,53 @@ void btree_postorder(struct btree *root) {
     btree_postorder(root->right);
   }
 }
+
+struct btree *btree_search(struct btree *root, int val, bool sorted) {
+  struct btree *found = NULL;
+  if (!root) {
+    return NULL;
+  }
+  if (val == root->val) {
+    return root;
+  }
+
+  if (sorted) {
+    if (val < root->val) {
+
+      found = btree_search(root->left, val, sorted);
+      if (found) {
+        return found;
+      }
+    }
+
+    found = btree_search(root->right, val, sorted);
+    if (found) {
+      return found;
+    }
+
+  } else {
+
+    found = btree_search(root->left, val, sorted);
+    if (found) {
+      return found;
+    }
+    found = btree_search(root->right, val, sorted);
+    if (found) {
+      return found;
+    }
+  }
+
+  return found;
+}
+
+int btree_count_nodes(struct btree *root) {
+  if (!root) {
+    return 0;
+  }
+
+  int nodes = 1;
+
+  nodes += btree_count_nodes(root->left);
+  nodes += btree_count_nodes(root->right);
+  return nodes;
+}
