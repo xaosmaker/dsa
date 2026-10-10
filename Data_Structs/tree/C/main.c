@@ -15,15 +15,24 @@ int main(void)
   btree_destroy(&t);
   printf("\nemptying tree\n");
   btree_preorder(t);
+
+  printf("height of the tree is: %d\n", btree_count_height(t));
   printf("\nempty tree\n\n");
 
   printf("insert sorted: %p, %d\n", (void *)btree_insert_sorted(&t, 10), 10);
   printf("insert sorted: %p, %d\n", (void *)btree_insert_sorted(&t, 5), 5);
   printf("insert sorted: %p, %d\n", (void *)btree_insert_sorted(&t, 15), 15);
   printf("insert sorted: %p, %d\n", (void *)btree_insert_sorted(&t, 16), 16);
+  printf("height of the tree is: %d\n", btree_count_height(t));
   printf("insert sorted: %p, %d\n", (void *)btree_insert_sorted(&t, 13), 13);
+
+  printf("height of the tree is: %d\n", btree_count_height(t));
   printf("insert sorted: %p, %d\n", (void *)btree_insert_sorted(&t, 15), 15);
   printf("insert sorted: %p, %d\n\n", (void *)btree_insert_sorted(&t, 4), 4);
+  printf("insert sorted: %p, %d\n\n", (void *)btree_insert_sorted(&t, 7), 7);
+  printf("height of the tree is: %d\n", btree_count_height(t));
+  printf("insert sorted: %p, %d\n\n", (void *)btree_insert_sorted(&t, 8), 8);
+  printf("insert sorted: %p, %d\n\n", (void *)btree_insert_sorted(&t, 9), 9);
   btree_preorder(t);
 
   printf("\nfound unsorted: %p, %d\n", (void *)btree_search(t, 10, false), 10);
@@ -46,6 +55,13 @@ int main(void)
 
   btree_preorder(t);
   printf("count nodes: %d\n", btree_count_nodes(t));
+
+  printf("height of the tree is: %d\n", btree_count_height(t));
+  printf("the leaf nodes are: %d\n", btree_count_leaf_nodes(t));
+  printf("the not leaf nodes are: %d\n", btree_count_non_leaf_nodes(t));
+  btree_remove(t, 15, false);
+  btree_preorder(t);
+
   btree_destroy(&t);
 
   return 0;

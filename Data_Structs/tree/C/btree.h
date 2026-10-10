@@ -59,11 +59,11 @@ void btree_preorder(struct btree *root);
 void btree_inorder(struct btree *root);
 void btree_postorder(struct btree *root);
 struct btree *btree_search(struct btree *root, int val, bool sorted);
-
-bool btree_remove(struct btree *root, int val);
 int btree_count_nodes(struct btree *root);
 int btree_count_height(struct btree *root);
 int btree_count_leaf_nodes(struct btree *root);
-int btree_count_not_leaf_nodes(struct btree *root);
+int btree_count_non_leaf_nodes(struct btree *root);
+
+struct btree *btree_remove(struct btree *root, int val, bool sorted);
 
 #endif // !BTREE_H

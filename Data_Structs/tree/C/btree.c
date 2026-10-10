@@ -13,6 +13,14 @@ static struct btree *btree_create_node(int val) {
   t->right = NULL;
   return t;
 }
+static int max(int a, int b) {
+  if (a > b) {
+    return a;
+  }
+  return b;
+  // explicit is better
+  // return a > b ? a : b;
+}
 
 struct btree *btree_insert(struct btree **root, int val) {
 
@@ -84,8 +92,8 @@ void btree_postorder(struct btree *root) {
   if (root) {
 
     btree_postorder(root->left);
-    printf("%d\n", root->val);
     btree_postorder(root->right);
+    printf("%d\n", root->val);
   }
 }
 
@@ -138,3 +146,58 @@ int btree_count_nodes(struct btree *root) {
   nodes += btree_count_nodes(root->right);
   return nodes;
 }
+
+// TODO: need to study and understand exactly
+int btree_count_height(struct btree *root) {
+  int left = 0, right = 0;
+
+  if (!root) {
+    return -1;
+  }
+
+  left += btree_count_height(root->left) + 1;
+  right += btree_count_height(root->right) + 1;
+
+  return max(left, right);
+  /*
+   * is the same as the above but i have to unserstand the recursion well to go
+   * return max(btree_count_height(root->left),
+   * btree_count_height(root->right));
+   */
+}
+
+int btree_count_leaf_nodes(struct btree *root) {
+  int left = 0, right = 0;
+
+  if (!root) {
+    return 0;
+  }
+
+  if (!root->left && !root->right) {
+    return 1;
+  }
+
+  left += btree_count_leaf_nodes(root->left);
+  right += btree_count_leaf_nodes(root->right);
+
+  return left + right;
+}
+int btree_count_non_leaf_nodes(struct btree *root) {
+
+  int left = 0, right = 0;
+
+  if (!root) {
+    return 0;
+  }
+
+  if (root->left || root->right) {
+    left++;
+  }
+
+  left += btree_count_non_leaf_nodes(root->left);
+  right += btree_count_non_leaf_nodes(root->right);
+
+  return left + right;
+}
+
+struct btree *btree_remove(struct btree *root, int val, bool sorted) {}
