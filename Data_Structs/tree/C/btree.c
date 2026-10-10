@@ -22,6 +22,12 @@ static int max(int a, int b) {
   // return a > b ? a : b;
 }
 
+static struct btree *min_node(struct btree *root) {
+  while (root->left) {
+    root = root->left;
+  }
+  return root;
+}
 struct btree *btree_insert(struct btree **root, int val) {
 
   if (!(*root)) {
@@ -92,8 +98,8 @@ void btree_postorder(struct btree *root) {
   if (root) {
 
     btree_postorder(root->left);
-    btree_postorder(root->right);
     printf("%d\n", root->val);
+    btree_postorder(root->right);
   }
 }
 
@@ -200,4 +206,31 @@ int btree_count_non_leaf_nodes(struct btree *root) {
   return left + right;
 }
 
-struct btree *btree_remove(struct btree *root, int val, bool sorted) {}
+struct btree *btree_remove(struct btree *root, int val, bool sorted) {
+  // TODO: unsorted implementation
+
+  if (root->val > val)
+    root->left = btree_remove(root->left, val, sorted);
+  else if (root->val < val)
+    root->right = btree_remove(root->right, val, sorted);
+
+  else {
+    // Node with 0 or 1 child
+    if (root->left == NULL) {
+      struct btree *temp = root->right;
+      free(root);
+      return temp;
+    }
+    if (root->right == NULL) {
+      struct btree *temp = root->left;
+      free(root);
+      return temp;
+    }
+
+    // Node with 2 children
+    struct btree *succ = min_node(root->right);
+    root->val = succ->val;
+    root->right = btree_remove(root->right, succ->val, sorted);
+  }
+  return root;
+}

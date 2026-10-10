@@ -60,6 +60,8 @@ int main(void)
   printf("the leaf nodes are: %d\n", btree_count_leaf_nodes(t));
   printf("the not leaf nodes are: %d\n", btree_count_non_leaf_nodes(t));
   btree_remove(t, 15, false);
+  printf("the not leaf nodes are: %d\n", btree_count_non_leaf_nodes(t));
+
   btree_preorder(t);
 
   btree_destroy(&t);
