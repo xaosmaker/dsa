@@ -60,10 +60,7 @@ int main(void)
   printf("height of the tree is: %d\n", btree_count_height(t));
   printf("the leaf nodes are: %d\n", btree_count_leaf_nodes(t));
   printf("the not leaf nodes are: %d\n", btree_count_non_leaf_nodes(t));
-  btree_remove(t, 15, true);
   btree_preorder(t);
-
-  printf("found sorted: %p, %d\n", (void *)btree_search(t, 16, true)->left, 16);
 
   btree_destroy(&t);
 

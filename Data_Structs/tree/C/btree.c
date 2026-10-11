@@ -1,4 +1,5 @@
 #include "btree.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,12 +23,6 @@ static int max(int a, int b) {
   // return a > b ? a : b;
 }
 
-static struct btree *min_node(struct btree *root) {
-  while (root->left) {
-    root = root->left;
-  }
-  return root;
-}
 struct btree *btree_insert(struct btree **root, int val) {
 
   if (!(*root)) {
@@ -166,8 +161,8 @@ int btree_count_height(struct btree *root) {
 
   return max(left, right);
   /*
-   * is the same as the above but i have to unserstand the recursion well to go
-   * return max(btree_count_height(root->left),
+   * is the same as the above but i have to unserstand the recursion well to
+   * go return max(btree_count_height(root->left),
    * btree_count_height(root->right));
    */
 }
@@ -207,39 +202,6 @@ int btree_count_non_leaf_nodes(struct btree *root) {
 }
 
 struct btree *btree_remove(struct btree *root, int val, bool sorted) {
-  // TODO: unsorted implementation
-  if (sorted) {
-
-    struct btree *min_larger_node = NULL;
-    if (!root) {
-      return NULL;
-    }
-
-    if (val < root->val) {
-      if (root->left) {
-        root->left = btree_remove(root->left, val, sorted);
-      }
-      return root;
-    }
-
-    if (val > root->val) {
-
-      if (root->right) {
-        root->right = btree_remove(root->right, val, sorted);
-      }
-      return root;
-    }
-    if (!root->right) {
-      return root->left;
-    }
-    if (!root->left) {
-      return root->right;
-    }
-    min_larger_node = min_node(root->right);
-    root->val = min_larger_node->val;
-    btree_destroy(&min_larger_node);
-    root->right = NULL;
-    return root;
-  }
-  return root;
+  printf("%d,%d,%p\n", val, sorted, (void *)root);
+  assert(false && "btree_remove function need implementation");
 }
