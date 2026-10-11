@@ -208,29 +208,38 @@ int btree_count_non_leaf_nodes(struct btree *root) {
 
 struct btree *btree_remove(struct btree *root, int val, bool sorted) {
   // TODO: unsorted implementation
+  if (sorted) {
 
-  if (root->val > val)
-    root->left = btree_remove(root->left, val, sorted);
-  else if (root->val < val)
-    root->right = btree_remove(root->right, val, sorted);
-
-  else {
-    // Node with 0 or 1 child
-    if (root->left == NULL) {
-      struct btree *temp = root->right;
-      free(root);
-      return temp;
-    }
-    if (root->right == NULL) {
-      struct btree *temp = root->left;
-      free(root);
-      return temp;
+    struct btree *min_larger_node = NULL;
+    if (!root) {
+      return NULL;
     }
 
-    // Node with 2 children
-    struct btree *succ = min_node(root->right);
-    root->val = succ->val;
-    root->right = btree_remove(root->right, succ->val, sorted);
+    if (val < root->val) {
+      if (root->left) {
+        root->left = btree_remove(root->left, val, sorted);
+      }
+      return root;
+    }
+
+    if (val > root->val) {
+
+      if (root->right) {
+        root->right = btree_remove(root->right, val, sorted);
+      }
+      return root;
+    }
+    if (!root->right) {
+      return root->left;
+    }
+    if (!root->left) {
+      return root->right;
+    }
+    min_larger_node = min_node(root->right);
+    root->val = min_larger_node->val;
+    btree_destroy(&min_larger_node);
+    root->right = NULL;
+    return root;
   }
   return root;
 }
