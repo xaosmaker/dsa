@@ -77,6 +77,14 @@ int main(void) {
   assert(t->data[1] == 15 && "test reverse array should succed");
   assert(t->data[2] == 10 && "test reverse array should succed");
   assert(t->data[3] == 5 && "test reverse array should succed");
+  print_arr(t);
+  insert(t, 3, 0);
+  insert(t, 4, 4);
+  insert(t, 6, 6);
+  delete(t, 6);
+  delete(t, 4);
+  delete(t, 0);
+  print_arr(t);
 
   free_array(t);
 

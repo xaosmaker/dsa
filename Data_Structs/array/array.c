@@ -142,7 +142,41 @@ void reverse(Array *arr) {
   }
 }
 
+void insert(Array *arr, int data, int index) {
+  if (index < 0 || index > arr->size) {
+    return;
+  }
+  if (arr->capacity == arr->size) {
+    if (!grow_array(arr)) {
+      return;
+    }
+  }
+
+  for (int i = arr->size; i > index; i--) {
+    arr->data[i] = arr->data[i - 1];
+  }
+
+  arr->data[index] = data;
+  arr->size++;
+}
+
 // test from here
-void insert(Array *arr, int data, int index);
-int *delete(Array *arr, int index);
-void sort(Array *arr, bool reverse);
+void delete(Array *arr, int index) {
+  if (index < 0 || index > arr->size) {
+    return;
+  }
+
+  for (int i = index; i < arr->size; i++) {
+    arr->data[i] = arr->data[i + 1];
+  }
+  arr->size--;
+}
+
+int find(Array *arr, int data) {
+  for (int i = 0; i < arr->size; i++) {
+    if (arr->data[i] == data) {
+      return i;
+    }
+  }
+  return -1;
+}

@@ -19,9 +19,8 @@ Array *slice(Array *arr, int idx_start, int idx_end);
 Array *copy(Array *arr);
 int count(Array *arr, int data);
 void reverse(Array *arr);
-
 void insert(Array *arr, int data, int index);
-int *delete (Array *arr, int index);
-void sort(Array *arr, bool reverse);
+void delete (Array *arr, int index);
+int find(Array *arr, int data);
 
 #endif // !ARRAY_H
