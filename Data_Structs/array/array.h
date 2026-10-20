@@ -55,10 +55,15 @@ void array_intersection_sorted();
 // check if array a has unique ellements than array b
 void array_difference();
 void array_difference_sorted();
+void array_find_missing();        // (n*(n+1) / 2) - sum(array), where n is the
 void array_find_missing_sorted(); // (n*(n+1) / 2) - sum(array), where n is the
                                   // last ellement
                                   // l = start number h= end number n = len
                                   // array and the diff is the index
+void array_find_dublicates();
+void array_find_dublicates_sorted();
+void array_find_pair_sorted();
+void array_find_pair();
 void array_pop();
 void array_count();
 void array_reverse();
