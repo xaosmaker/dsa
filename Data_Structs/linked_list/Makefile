@@ -23,11 +23,12 @@ DEBUG = -g3
 DEPFLAGS = -MMD -MP
 CFLAGS = $(CSTD) $(OPT) $(DEBUG) $(WARNINGS) $(DEPFLAGS) $(ANALYZER)
 
+valgrind: $(BIN_NAME)
+	valgrind ./$(BIN_NAME)
+
 all: $(BIN_NAME)
 	./$(BIN_NAME)
 
-valgrind: $(BIN_NAME)
-	valgrind ./$(BIN_NAME)
 
 
 
