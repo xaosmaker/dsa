@@ -25,6 +25,8 @@ Array *slice(Array *arr, int idx_start, int idx_end);
 Array *copy(Array *arr);
 
 // check to implement this
+void array_create();
+void array_destroy();
 void array_display();
 void array_append();
 void array_insert();

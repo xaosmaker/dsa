@@ -1,4 +1,6 @@
 #include "linked_list.h"
+#include <assert.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -80,11 +82,74 @@ int ll_count(struct ll_node *ll) {
   if (!ll) {
     return 0;
   }
-  struct ll_node *curr = ll->next;
+  // fun implementation
+  // struct ll_node *curr = NULL;
+  // for (curr = ll; curr != ll || count == 0; curr = curr->next, count++)
+  //   ;
 
-  while (curr != ll) {
+  struct ll_node *curr = ll;
+
+  do {
     count++;
     curr = curr->next;
-  }
+
+  } while (curr != ll);
   return count;
+}
+
+struct ll_node *ll_find(struct ll_node *ll, int data) {
+  if (!ll) {
+    return NULL;
+  }
+  struct ll_node *curr = ll;
+  do {
+    if (curr->data == data) {
+      return curr;
+    }
+    curr = curr->next;
+
+  } while (curr != ll);
+
+  return NULL;
+}
+
+struct ll_node *ll_peek_head(struct ll_node *ll) {
+  if (!ll) {
+    return NULL;
+  }
+  return ll;
+}
+struct ll_node *ll_peek_tail(struct ll_node *ll) {
+
+  if (!ll) {
+    return NULL;
+  }
+  return ll->prev;
+}
+
+struct ll_node *ll_insert(struct ll_node *ll, int data, int index) {
+  if (!ll || index == 0) {
+    return ll_add_head(ll, data);
+  }
+  struct ll_node *curr = ll;
+  for (int i = 0; i < index; i++) {
+    curr = curr->next;
+    if (curr == ll) {
+      return NULL;
+    }
+  }
+  return ll_add_head(curr, data);
+}
+
+struct ll_node *ll_pop_tail(struct ll_node *ll) {
+  if (!ll) {
+    return NULL;
+  }
+  struct ll_node *pop_data = ll->prev;
+  ll->prev = pop_data->prev;
+  ll->prev->next = ll;
+  pop_data->next = pop_data;
+  pop_data->prev = pop_data;
+
+  return pop_data;
 }
